@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Taco Cloud</title>
+<link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 <body>
 	<h1>Design your Taco</h1>
@@ -57,12 +58,14 @@
 			</div>
 		</div>
 		
+		<span class="validationError" th:if="${#fields.hasErrors('ingredients')}" >Tacos must have at least 1 ingredient.</span>
 		</div> <!-- ingredient grid end -->
 		
 		
 		<div>
 			<h3>Name your Taco Creation</h3>
 			<input type="text"  th:field="*{name}" />
+			<span class="validationError" th:if="${#fields.hasErrors('name')}" >Name must be at least 5 characters long.</span>
 			<br/>
 			<button>Submit your Taco</button>
 		</div>
