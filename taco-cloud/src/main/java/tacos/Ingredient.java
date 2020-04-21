@@ -1,10 +1,12 @@
 package tacos;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
+@Builder
 public class Ingredient {
 
 	private final String id;
