@@ -1,10 +1,10 @@
 -- clear data from existing tables, if there are any.
 
-DELETE FROM Taco_Order_Tacos;
-DELETE FROM Taco_Ingredients;
-DELETE FROM Taco;
-DELETE FROM Taco_Order;
-DELETE FROM Ingredient;
+--DELETE FROM Taco_Order_Tacos;
+--DELETE FROM Taco_Ingredients;
+--DELETE FROM Taco;
+--DELETE FROM Taco_Order;
+--DELETE FROM Ingredient;
 
 
 -- Now insert some ingredient data
