@@ -11,6 +11,7 @@
 	<img th:src="@{/images/TacoCloud.jpeg}" />
 	
 	<form method="POST"  th:object="${taco}">
+		<input type="hidden"  name="_csrf"  th:value="${_csrf.token}" />
 		<div class="grid">
 		
 		<div class="ingredient-group"  id="wraps">
@@ -69,6 +70,10 @@
 			<br/>
 			<button>Submit your Taco</button>
 		</div>
+	</form>
+	
+	<form  method="POST"  th:action="@{/logout}" >
+		<input type="submit"  value="Logout" />
 	</form>
 </body>
 </html>

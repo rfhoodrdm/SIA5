@@ -8,6 +8,7 @@
 </head>
 <body>
 	<form method="POST"  th:action="@{/orders}" th:object="${order}" >
+		<input type="hidden"  name="_csrf"  th:value="${_csrf.token}" />
 		<h1>Order your Taco Creation!</h1>
 		
 		<img th:src="@{/images/TacoCloud.jpeg}" />
@@ -70,6 +71,10 @@
 		
 	
 		<input type="submit"  value="Submit order" />
+	</form>
+	<br/>
+	<form  method="POST"  th:action="@{/logout}" >
+		<input type="submit"  value="Logout" />
 	</form>
 </body>
 </html>

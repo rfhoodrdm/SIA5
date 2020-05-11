@@ -3,6 +3,7 @@ package tacos.web;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import lombok.extern.slf4j.Slf4j;
 import tacos.Order;
+import tacos.User;
 import tacos.data.OrderRepository;
 
 @Slf4j
@@ -38,14 +40,17 @@ public class OrderController {
 	@PostMapping
 	public String processOrder( @Valid  Order order, 
 			Errors errors, 
-			SessionStatus sessionStatus ) {
+			SessionStatus sessionStatus,
+			@AuthenticationPrincipal User user) {
 
 		//check for errors. If so, then go back to the design page.
 		if ( errors.hasErrors() ) {
 			return "orderForm";
 		}
+		
+		order.setUser(user);
 
-		log.info("Order submitted: " + order + " which has " + order.getTacos().size() + " tacos in it." );
+		log.info("Order submitted: " + order + "  by user: " + user.getUsername() +" which has " + order.getTacos().size() + " tacos in it." );
 		orderRepo.save(order);			//save the order after submission
 		sessionStatus.setComplete();	//clear the order by closing the session.
 		
