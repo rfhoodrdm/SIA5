@@ -14,13 +14,32 @@ import tacos.data.IngredientRepository;
 @Slf4j
 public class IngredientByIdConverter implements Converter<String, Ingredient> {
 	
+	/** *************************************************
+	 * 			Member Variables and Constants
+	 *  ************************************************* */ 
+	
 	private IngredientRepository ingredientRepo;
+	
+	
+	/** *************************************************
+	 * 					Bean Definitions
+	 *  ************************************************* */ 
+	
+	
+	/** *************************************************
+	 * 					Initialization
+	 *  ************************************************* */ 
 	
 	@Autowired
 	public IngredientByIdConverter ( IngredientRepository ingredientRepo ) {
 		this.ingredientRepo = ingredientRepo;
 	}
 
+	
+	/** *************************************************
+	 * 						API
+	 *  ************************************************* */ 
+	
 	@Override
 	public Ingredient convert(String id) {
 		//return ingredientRepo.findOne(id);

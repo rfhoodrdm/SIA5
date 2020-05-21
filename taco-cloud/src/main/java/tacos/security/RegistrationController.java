@@ -14,8 +14,21 @@ import tacos.data.UserRepository;
 @RequestMapping("/register")
 public class RegistrationController {
 	
+	/** *************************************************
+	* 			Member Variables and Constants
+	*  ************************************************* */ 
+
 	private final UserRepository userRepo;
 	private final PasswordEncoder passwordEncoder;
+
+	
+	/** *************************************************
+	* 					Bean Definitions
+	*  ************************************************* */ 
+	 
+	/** *************************************************
+	* 					Initialization
+	*  ************************************************* */ 
 	
 	/**
 	 * Constructor uses bean definitions from @Bean decorated methods in other classes for the password Encoder.
@@ -28,7 +41,10 @@ public class RegistrationController {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-
+	
+	/** *************************************************
+	* 						API
+	*  ************************************************* */ 
 
 	@GetMapping
 	public String registerForm() {

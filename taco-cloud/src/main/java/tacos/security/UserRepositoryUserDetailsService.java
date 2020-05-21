@@ -12,14 +12,31 @@ import tacos.data.UserRepository;
 @Service
 public class UserRepositoryUserDetailsService implements UserDetailsService {
 	
+	/** *************************************************
+	 * 			Member Variables and Constants
+	 *  ************************************************* */ 
+
+
 	private final UserRepository userRepo;
 	
+	 /** *************************************************
+	  * 					Bean Definitions
+	  *  ************************************************* */ 
+	 
+	 /** *************************************************
+	  * 					Initialization
+	  *  ************************************************* */ 
+
 	@Autowired
 	public UserRepositoryUserDetailsService(UserRepository userRepo) {
 		this.userRepo = userRepo;
 	}
 	
 
+	/** *************************************************
+	 * 						API
+	 *  ************************************************* */ 
+	
 	/**
 	 * Must never return null.
 	 */
