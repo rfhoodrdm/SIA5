@@ -23,6 +23,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class User implements UserDetails {
 
+	/** *************************************************
+	* 			Member Variables and Constants
+	*  ************************************************* */ 
+	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -38,6 +42,18 @@ public class User implements UserDetails {
 	private final String zip;
 	private final String phone;
 	
+	
+	/** *************************************************
+	* 					Bean Definitions
+	*  ************************************************* */ 
+	 
+	/** *************************************************
+	* 					Initialization
+	*  ************************************************* */ 
+
+	/** *************************************************
+	* 						API
+	*  ************************************************* */ 
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

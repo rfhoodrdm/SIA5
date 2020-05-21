@@ -31,8 +31,21 @@ import tacos.data.TacoRepository;
 @SessionAttributes("order")
 public class DesignTacoController {
 	
+	/** *************************************************
+	 * 			Member Variables and Constants
+	 *  ************************************************* */ 
+	
 	private final IngredientRepository ingredientRepo;
 	private final TacoRepository tacoRepository;
+	
+	
+	/** *************************************************
+	 * 					Bean Definitions
+	 *  ************************************************* */ 
+	
+	/** *************************************************
+	 * 					Initialization
+	 *  ************************************************* */ 
 	
 	@Autowired
 	public DesignTacoController ( IngredientRepository ingredientRepo, TacoRepository tacoRepository ) {
@@ -50,6 +63,9 @@ public class DesignTacoController {
 	    return new Order();
 	  }
 	
+	/** *************************************************
+	 * 						API
+	 *  ************************************************* */ 
 	
 	@GetMapping
 	public String showDesignForm(Model model) {

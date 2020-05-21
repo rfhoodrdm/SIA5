@@ -3,6 +3,9 @@ package tacos.web;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,19 +26,53 @@ import tacos.data.OrderRepository;
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("order")
+@ConfigurationProperties(prefix="taco.orders")
 public class OrderController {
 	
+	/** *************************************************
+	 * 			Member Variables and Constants
+	 *  ************************************************* */ 
+	
 	private OrderRepository orderRepo;
+	private OrderProps orderProps;
+	
+	
+	/** *************************************************
+	 * 					Bean Definitions
+	 *  ************************************************* */ 
+	
+	/** *************************************************
+	 * 					Initialization
+	 *  ************************************************* */ 
 	
 	@Autowired
-	public OrderController ( OrderRepository orderRepo ) {
+	public OrderController(OrderRepository orderRepo, OrderProps orderProps) {
+		super();
 		this.orderRepo = orderRepo;
+		this.orderProps = orderProps;
 	}
 	
+	
+	/** *************************************************
+	 * 						API
+	 *  ************************************************* */ 	
+
+
 	@GetMapping("/current")
 	public String orderForm(Model model) {
 		return "orderForm";
 	}
+	
+	
+	@GetMapping()
+	public String ordersForUsers( @AuthenticationPrincipal User user,  Model model ) {
+		
+		Pageable pageable = PageRequest.of(0, orderProps.getPageSize() );
+		model.addAttribute("orders", orderRepo.findOrdersByUserOrderByPlacedAtDesc(user, pageable) );
+		
+		return "orderList";
+	}
+	
 	
 	@PostMapping
 	public String processOrder( @Valid  Order order, 

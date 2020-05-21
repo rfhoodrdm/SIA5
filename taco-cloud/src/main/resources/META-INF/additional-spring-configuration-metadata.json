@@ -1,0 +1,9 @@
+{
+	"properties": [
+		{
+			"name": "taco.orders.page-size",
+			"type": "java.lang.String",
+			"description": "Number of prior orders to be retrieved at one time for a user."
+		}
+	]
+}

@@ -15,6 +15,60 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
+	/** *************************************************
+	 * 			Member Variables and Constants
+	 *  ************************************************* */ 
+	//Custom user store.
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
+	
+	/** *************************************************
+	 * 					Bean Definitions
+	 *  ************************************************* */ 
+	
+	@Bean
+	public PasswordEncoder encoder() {
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		//return new StandardPasswordEncoder("53cr3t");		//deprecated, but following code example from book.
+	}
+	
+	
+	/** *************************************************
+	 * 					Initialization
+	 *  ************************************************* */ 
+	
+	
+	/** *************************************************
+	 * 						API
+	 *  ************************************************* */ 
+	
+	/**
+	 * Plug in the service to fetch user details to Spring's authentication mechanism.
+	 */
+	@Override
+	public void configure( AuthenticationManagerBuilder auth ) throws Exception {
+		auth.userDetailsService(userDetailsService);
+	}
+	
+	/**
+	 * Configure which paths need authentication and authorization.
+	 */
+	@Override
+	protected void configure ( HttpSecurity http ) throws Exception {
+		http.authorizeRequests()
+		.antMatchers("/design", "/orders").access("hasRole('ROLE_USER')")
+		.antMatchers("/", "/**").permitAll()
+			.and()
+		.formLogin().loginPage("/login")
+			.and()
+		.logout().logoutSuccessUrl("/");
+	}
+	
+	/**
+	 * Older examples retained for educational purpose.
+	 */
+	
 	//in-memory based.
 //	@Override
 //	public void configure( AuthenticationManagerBuilder auth ) throws Exception {
@@ -38,36 +92,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //		auth.jdbcAuthentication().dataSource(dataSource);
 //			
 //	}
-	
-	
-	//Custom user store.
-	
-	@Autowired
-	private UserDetailsService userDetailsService;
-	
-	@Bean
-	public PasswordEncoder encoder() {
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-		//return new StandardPasswordEncoder("53cr3t");		//deprecated, but following code example from book.
-	}
-	
-	@Override
-	public void configure( AuthenticationManagerBuilder auth ) throws Exception {
-		auth.userDetailsService(userDetailsService);
-	}
-	
-	
-	@Override
-	protected void configure ( HttpSecurity http ) throws Exception {
-		http.authorizeRequests()
-		.antMatchers("/design", "/orders").access("hasRole('ROLE_USER')")
-		.antMatchers("/", "/**").permitAll()
-			.and()
-		.formLogin().loginPage("/login")
-			.and()
-		.logout().logoutSuccessUrl("/");
-			//.and()
-		//.csrf().disable();	//disable csrf for now, until we get to that part of the chapter, so we can do post requests.
-	}
 	
 }
