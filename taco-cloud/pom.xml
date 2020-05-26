@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>sia</groupId>
-	<artifactId>taco-cloud</artifactId>
+	<artifactId>my-taco-cloud</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>taco-cloud</name>
+	<name>my-taco-cloud</name>
 	<description>Taco Cloud Example</description>
 
 	<properties>
